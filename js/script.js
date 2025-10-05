@@ -248,7 +248,7 @@ const calculateSocioEconomicImpact = (severeDamageCount, damageRadiusMeters, the
 
     let estimatedDamage = 0;
 
-    const baseDamageFloor = 5000000 * Math.pow(energyYield, 0.75); 
+    const baseDamageFloor = 5000000 * Math.pow(energyYield, 0.75);
 
     estimatedDamage += severeDamageCount * MOCK_BUILDING_VALUE_USD;
 
@@ -278,9 +278,9 @@ const calculateSocioEconomicImpact = (severeDamageCount, damageRadiusMeters, the
     estimatedFatalities += Math.round(shockAreaSqKm * MOCK_POP_DENSITY_SQKM * CASUALTY_RATE_STRUCTURAL);
 
     const thermalFatalityMultiplier = Math.pow(thermalAreaSqKm, 0.7) * (MOCK_POP_DENSITY_SQKM / 10000);
-    estimatedFatalities += Math.round(thermalFatalityMultiplier * 10 * CASUALTY_RATE_THERMAL_MINOR); 
+    estimatedFatalities += Math.round(thermalFatalityMultiplier * 10 * CASUALTY_RATE_THERMAL_MINOR);
 
-    const baseEnergyFatality = Math.round(50 * Math.pow(energyYield, 0.8)); 
+    const baseEnergyFatality = Math.round(50 * Math.pow(energyYield, 0.8));
     estimatedFatalities = Math.max(estimatedFatalities, baseEnergyFatality);
 
     estimatedFatalities = Math.min(Math.max(estimatedFatalities, 10), 500);
@@ -628,8 +628,8 @@ const updateSummary = (burstAltitude, energyYield, thermalRadius, severeDamageCo
     }
 
     const { formattedDamage, estimatedFatalities } = calculateSocioEconomicImpact(severeDamageCount, maxDamageRadius, thermalRadius);
-    economicDamageDisplay.textContent = "≈"+formattedDamage;
-    humanFatalitiesDisplay.textContent = estimatedFatalities.toLocaleString()+"±";
+    economicDamageDisplay.textContent = "≈" + formattedDamage;
+    humanFatalitiesDisplay.textContent = estimatedFatalities.toLocaleString() + "±";
 
     damageSummaryContainer.innerHTML = `
                 <div class="damage-summary-box ${colorClass}">
@@ -784,7 +784,7 @@ const shareSimulationResults = async () => {
 
         `[Sentry Risk Assessment]\n` +
         `• Torino Scale: ${torinoScaleDisplay.textContent}\n` +
-        `• Potential Impact Years: ${potentialYearsDisplay.textContent}\n`+
+        `• Potential Impact Years: ${potentialYearsDisplay.textContent}\n` +
         `Check out https://aadithyandd.github.io/uromet/ for simulating such predictions!\n`;
 
     let files = [];
@@ -939,7 +939,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     } else {
         welcomeOverlay.style.display = 'none';
-    }       
+    }
 });
- 
+function cleardata() {
+    if (confirm("Are you sure you want to clear all stored data? This action cannot be undone.")) {
+        alert("All stored data has been cleared.");
+        localStorage.clear();
+        window.location.reload();
+    } else {
+        alert("Data clearance canceled.");
+    }
+
+}
 
