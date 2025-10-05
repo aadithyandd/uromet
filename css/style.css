@@ -21,14 +21,13 @@
 
         body {
             font-family: "Alan Sans", sans-serif;
-            background-color: #ffffff;
-            background-image: url('./images/bg3.png');
+            background-color: #000000;
+            background-image: url('/images/bg3.png');
             background-repeat: no-repeat;
             background-position: center top;
             background-attachment: fixed;
             background-size: cover;
             /*background-image: url("https://www.transparenttextures.com/patterns/3px-tile.png");*/
-            color: black;
             min-height: 100vh;
             padding: 1rem;
             color: white;
@@ -75,7 +74,7 @@
             color: rgb(255, 255, 255);
             font-size: 34px;
             margin-bottom: 10px;
-            letter-spacing: 9px;
+            letter-spacing: 7px;
         }
 
         .tag {
