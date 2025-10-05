@@ -806,7 +806,6 @@ const shareSimulationResults = async () => {
             await navigator.share({
                 title: 'Atmosphere Shield Simulation Results',
                 text: message,
-                files: files.length ? files : undefined,
             });
         } catch (error) {
             if (error.name !== 'AbortError') {
