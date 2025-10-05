@@ -946,6 +946,7 @@ function cleardata() {
         alert("All stored data has been cleared.");
         localStorage.clear();
         window.location.reload();
+        window.scrollTo(0, 0);
     } else {
         alert("Data clearance canceled.");
     }
