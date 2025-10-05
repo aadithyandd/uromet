@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uromet</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/script.js" defer></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="icon" type="image/x-icon" href="images/m2.png">
+
+</head>
+
+<body>
+    <center>
+        <nav class="navbar" id="navbar">
+            <a onclick="ondgo()" class="navbar-brand">
+                ONDA<span style="color:#EAB308">G</span>O
+            </a>
+
+            <button class="menu-toggle" aria-expanded="false" aria-controls="navbar-menu" onclick="toggleMenu()">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+
+            <ul class="navbar-links" id="navbar-menu">
+                <li><a class="active" onclick="runsim()">Run Sim</a></li>
+                <li><a onclick="news()">News</a></li>
+                <li><a onclick="contact()">Contact</a></li>
+                <li><a onclick="about()">About</a></li>
+            </ul>
+        </nav>
+        <script>
+            ;
+            const navbarMenu = document.getElementById('navbar-menu');
+
+            function toggleMenu() {
+                op = prompt("choose an option> \n 1. Run Sim \n 2. News \n 3. Contact \n 4. About");
+                if (op == 1) {
+                    runsim();
+                } else if (op == 2) {
+                    news();
+                } else if (op == 3) {
+                    contact();
+                } else if (op == 4) {
+                    about();
+                } else {
+                    alert("Invalid option. Please try again.");
+                }
+            }
+
+        </script>
+    </center>
+    <br><br>
+    <div id="rocket-flyer">
+        <img src="images/m1.png" class="m1">
+    </div>
+    <div id="rocket-flyer2">
+        <img src="images/m1.png" class="m1">
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const rocket = document.getElementById('rocket-flyer');
+            const edgeBuffer = 10;
+            const maxRangeX = 100 - (edgeBuffer * 2) - 20;
+            const maxRangeY = 100 - (edgeBuffer * 2) - 20;
+            const randomX = Math.floor(Math.random() * maxRangeX) + edgeBuffer + 10;
+            const randomY = Math.floor(Math.random() * maxRangeY) + edgeBuffer + 10;
+            rocket.style.left = `${randomX}vw`;
+            rocket.style.top = `${randomY}vh`;
+        });
+    </script>
+
+    <header>
+        <style>
+            @keyframes spin-y {
+                from {
+                    transform: rotateY(0deg);
+                }
+
+                to {
+                    transform: rotateY(360deg);
+                }
+            }
+
+            @keyframes float {
+                0% {
+                    transform: translateY(0);
+                }
+
+                50% {
+                    transform: translateY(-20px);
+                }
+
+                100% {
+                    transform: translateY(0);
+                }
+            }
+
+            .perspective-container {
+                perspective: 600px;
+            }
+
+            .m {
+                display: inline-block;
+                font-size: 85px;
+                font-weight: 900;
+                transform-style: preserve-3d;
+                animation:
+                    spin-y 2.5s linear infinite,
+                    float 3s ease-in-out infinite alternate;
+                line-height: 1;
+            }
+
+            @media (max-width: 640px) {
+                .floating-spinner {
+                    font-size: 6rem;
+                }
+            }
+
+            #welcome-overlay {
+                position: fixed;
+                top: 150px;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 999;
+                padding: 20px 30px;
+                background-color: #ffffff;
+                color: black;
+                border-radius: 10px;
+                box-shadow: 0 5px 20px rgba(24, 24, 24, 0.5);
+                text-align: center;
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 0.5s, transform 0.5s;
+            }
+
+            #welcome-overlay.visible {
+                opacity: 1;
+                visibility: visible;
+                transform: translateX(-50%) translateY(0);
+            }
+
+            #welcome-overlay button {
+                margin-top: 10px;
+                padding: 5px 15px;
+                background-color: #8eec83;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+        </style><br><br>
+        <div id="welcome-overlay">
+            <p style="color:black;">👋 Welcome to Uromet</p>
+            <span style="font-size:12px; color:black;">
+            <p style="font-size:12px; color:black;">Hover over headings/titles (e.g., 'Asteroid Details') <br> for more information.</p>
+            <p style="font-size:12px; color:rgb(67, 67, 67);">Have fun analyzing the <span style="color:rgb(252, 98, 98)";>risk!</span></p>
+            </span>
+            <button id="close-welcome">Got It!</button>
+        </div>
+
+        <h1 class="title">Uro<span class="m">m</span>et</h1><br>
+        <label for="angle" class="input-label"
+            onmouseover="showTooltip(event, 'Project description', 'Our project, Uromet, is a specialized, interactive simulation tool designed to model the impact of Near-Earth Objects (NEOs) that fall within the specific size range of 10 meters to 100 meters in diameter. This size range is often overlooked: objects smaller than 10m usually burn up harmlessly, while objects larger than 100m are extinction-level events. The 10m to 100m range, exemplified by the 2013 Chelyabinsk event, represents the most likely catastrophic threat humanity will face: a powerful airburst over a populated areaThis size range is often overlooked: objects smaller than 10m usually burn up harmlessly, while objects larger than 100m are extinction-level events. The 10m to 100m range, exemplified by the 2013 Chelyabinsk event, represents the most likely catastrophic threat humanity will face: a powerful airburst over a populated area')"
+            onmouseout="hideTooltip()" onmousemove="moveTooltip(event)">
+            <p class="tag">Modeling the most likely catastrophic threat: Sub Kilometer Airbursts.</p>
+        </label>
+    </header><br><br>
+
+    <main class="container-main">
+        <div class="panel">
+            <span class="panel-header"> Localized 3D Damage Simulation - <span style="color:yellow">City</span>
+                Model</span><br>
+            <span class="cityData" onclick="cityData()">city data</span><br><br>
+            <div id="city-view">
+                <div class="interaction-guide">
+                    <p>INTERACT:</p>
+                    <p>Drag mouse/touch to orbit, Scroll to zoom.</p>
+                </div>
+            </div>
+            <div id="damage-summary-container">
+            </div>
+        </div>
+        <label for="angle" class="input-label"
+            onmouseover="showTooltip(event, '3D Visualization of Earth and a Meteor', 'We made this representation using three.js to show a meteor that\'s entering Earth\'s atmosphere. The meteor is depicted as a small, bright object moving towards the Earth, which is shown as a large blue and green sphere. The scene includes a starry background to simulate space, and the meteor\'s trajectory is illustrated with a glowing trail. This visualization helps to illustrate the concept of meteors entering the Earth\'s atmosphere and can be used for educational purposes or to enhance understanding of meteor impacts.')"
+            onmouseout="hideTooltip()" onmousemove="moveTooltip(event)">
+            <span style="font-family: 'Pixelify Sans', sans-serif; padding-left: 10px; font-size: 19px;">Example 3D
+                Visualization of <span style="color:rgb(19, 169, 19);">Earth</span> and Meteorite Entry
+                Simulation</span>
+        </label>
+
+        <iframe src="https://aadithyandd.github.io/uromet-visual/" title="Earth and Meteor 3D Visualization"
+            width="100%" height="340" class="frame" allowfullscreen>
+        </iframe>
+
+
+
+        <div class="panel">
+            <h2 class="control-panel-header">Asteroid Parameters <span style="font-size: 12px; color:white">(Input
+                    Trajectory)</span></h2>
+
+            <div class="selector-container">
+                <label for="date-presets">Select NEO (Hazardous Airburst Size 10-100m):</label>
+
+                <select id="asteroid-select" class="select-input">
+                    <option value="" disabled selected>Loading PHAs from NASA...</option>
+                </select>
+                <p id="api-status" class="input-description">Loading data from multiple search windows for best
+                    results.
+                </p>
+            </div>
+
+            <div class="input-grid">
+
+                <div class="control-group">
+                    <label for="diameter" class="input-label"
+                        onmouseover="showTooltip(event, 'Asteroid Diameter', 'The estimated width of the asteroid. Mass, and therefore energy, scales dramatically with diameter, making this the most crucial variable for impact modeling.')"
+                        onmouseout="hideTooltip()" onmousemove="moveTooltip(event)">
+                        Asteroid Diameter (m): <span id="diameter-value" class="input-value">50</span>m</label>
+                    <input type="range" id="diameter" min="10" max="100" value="50" step="5">
+                    <p class="input-description">10m (Chelyabinsk) to 100m (Tunguska).</p>
+                </div>
+
+                <div class="control-group">
+                    <label for="velocity" class="input-label"
+                        onmouseover="showTooltip(event, 'Entry Velocity', 'The speed of the asteroid relative to Earth upon atmospheric entry. Kinetic energy scales with the square of this value.')"
+                        onmouseout="hideTooltip()" onmousemove="moveTooltip(event)">
+                        Entry Velocity (km/s): <span id="velocity-value" class="input-value">20.0</span>
+                        km/s</label>
+                    <input type="range" id="velocity" min="11" max="50" value="20" step="1">
+                    <p class="input-description">Typical NEO impact speed range.</p>
+                </div>
+
+                <div class="control-group">
+                    <label for="angle" class="input-label"
+                        onmouseover="showTooltip(event, 'Entry Angle', 'The angle at which the asteroid enters the atmosphere, measured from the horizon (90° is straight down). A shallower angle increases the burst altitude.')"
+                        onmouseout="hideTooltip()" onmousemove="moveTooltip(event)">
+                        Entry Angle (°): <span id="angle-value" class="input-value">45</span>°</label>
+                    <input type="range" id="angle" min="10" max="90" value="45" step="5">
+                    <p class="input-description">Angle from horizontal (90° is straight down).</p>
+                </div>
+            </div>
+
+            <div class="results-box">
+                <h3 class="results-header">Airburst Prediction</h3>
+                <div class="results-grid">
+                    <div>
+                        <p onmouseover="showTooltip(event, 'Burst Altitude', 'The height at which the asteroid fragments and releases most of its kinetic energy (the explosion point). A higher altitude means weaker ground effects.')"
+                            onmouseout="hideTooltip()" onmousemove="moveTooltip(event)">
+                            Predicted Burst Altitude (Physics Model):</p>
+                        <p class="data-value"><span id="burst-altitude-display">0.0</span> km</p>
+                    </div>
+                    <div>
+                        <p onmouseover="showTooltip(event, 'Energy Yield', 'The total kinetic energy of the asteroid, expressed in equivalent Megatons of TNT. This directly dictates the blast magnitude.')"
+                            onmouseout="hideTooltip()" onmousemove="moveTooltip(event)">
+                            Calculated Energy Yield (Based on NEO Mass/Vel):</p>
+                        <p class="data-value"><span id="energy-yield-display">0.00</span> Megatons TNT</p>
+                    </div>
+                </div>
+
+                <div class="thermal-risk-note">
+                    <p class="thm-sm">Thermal Flash Footprint (3rd Degree Burns):</p>
+                    <p class="data-value">
+                        <span id="thermal-radius-display" class="thm-sm">0</span> meters radius
+                    </p>
+                    <p class="thm-sm">*Thermal effects are instantaneous and can cause injury far beyond the
+                        shockwave
+                        radius.</p>
+                </div>
+
+                <div id="catastrophe-impact" class="sentry-panel">
+                    <h3 class="results-header" style="color: var(--color-red-primary);">Catastrophe Impact &
+                        Casualty
+                        Simulation</h3>
+                    <div class="sentry-risk-grid">
+                        <div>
+                            <p>Simulated Economic Damage (USD):</p>
+                            <p class="data-value" id="economic-damage">$0</p>
+                        </div>
+                        <div>
+                            <p>Estimated Initial Fatalities:</p>
+                            <p class="data-value" id="human-fatalities">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="sentry-risk-assessment" class="sentry-panel">
+                    <h3 class="results-header" style="color: var(--color-blue-secondary);">Sentry Risk Assessment
+                        (Simulated NASA Data)</h3>
+                    <p id="sentry-neo-name" class="sentry-description">Select an asteroid to view its Sentry risk
+                        data.
+                    </p>
+                    <div class="sentry-risk-grid">
+                        <div>
+                            <p onmouseover="showTooltip(event, 'Torino Scale Rating', 'A scale from 0 to 10 classifying the impact hazard risk. 0 means virtually no chance of impact, while 1-2 means warranting careful monitoring.')"
+                                onmouseout="hideTooltip()" onmousemove="moveTooltip(event)">
+                                Torino Scale Rating:</p>
+                            <p class="sentry-torino" id="torino-scale">0</p>
+                        </div>
+                        <div>
+                            <p>Potential Impact Years:</p>
+                            <p class="data-value" id="potential-years">None</p>
+                        </div>
+                    </div>
+                </div>
+                <center>
+                    <button id="ar-launch-button" class="select-input fireball-button"
+                        style="border: none; margin-top: 1rem; background-color: var(--color-purple-primary);">
+                        Launch AR View (Experimental)
+                    </button><br>
+
+                    <button id="share-button" class="select-input fireball-button" class="sh-btn"
+                        style="border: none; margin-top: 1rem; ">
+                        Share Simulation Results
+                    </button>
+
+                    <br><br>
+
+
+
+                    <div>
+                        <img src="images/bg41.png" class="bg4">
+                    </div>
+                    <div class="sec2">
+                    <div class="lookup">
+                        <div class="container">
+                            <h2 class="title3">
+                                NASA Asteroid L🔍okup
+                            </h2>
+                            <p style="font-size: 12px; color:grey;">Enter a NASA JPL small body (SPK-ID) to fetch
+                                details.
+                            </p>
+
+                            <label for="asteroidId"
+                                style="font-family:  Pixelify Sans, sans-serif; font-size: 20px; ">Asteroid SPK-ID
+                                (e.g.,
+                                2000433)</label><br><br>
+                            <input type=" text" id="asteroidId" value="2000433" placeholder="Enter SPK-ID" class="astv">
+                            <br>
+                            <button onclick="fetchAsteroidDetails()" class="fetchd">Fetch Details</button>
+                            <br><br>
+                            <div id="results">
+                                <p style="font-size: 10px;">Asteroid details will appear here...</p>
+                            </div>
+                        </div>
+                        </div>
+                    </div><br>
+                    <div class="sec2">
+                    <h1 class="title2">
+                        Extra!
+                    </h1>
+                    <button id="fireball-api-button" class="select-input fireball-button"
+                        style="border: none; margin-top: 1rem; background-color:rgba(0, 128, 0, 0.241);">
+                        View Recent Cosmic Events (NASA APOD)
+                    </button><br><br>
+                    <p style="color:grey; font-size:10px;">some extra knowledge for funn!!</p>
+                    <br><Br>
+                </center>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="tooltip-box"></div>
+    <div id="fireball-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <button class="modal-close"
+                onclick="document.getElementById('fireball-modal').style.display = 'none';">&times;</button>
+            <h3 class="results-header" style="color: var(--color-blue-secondary);">NASA Astronomy Picture of the Day
+                (APOD)</h3>
+            <p id="apod-modal-status" class="input-description">Fetching data...</p>
+            <div id="apod-content-container" class="fireball-list">
+            </div>
+            <p class="input-description" style="margin-top: 1rem;">Source: NASA APOD API. Provides daily astronomical
+                context.</p>
+        </div>
+    </div>
+
+
+
+    <script>
+        const API_KEY = 'dgwT9MFSrDqtuoH10bDxAbpS2snlRM8ebcRfNvwv';
+        const BASE_URL = 'https://api.nasa.gov/neo/rest/v1/neo/';
+        const FEED_URL = 'https://api.nasa.gov/neo/rest/v1/feed';
+
+        function calculateCatastropheRating(diameterMax, missDistance) {
+            if (diameterMax === 'N/A' || missDistance === 'N/A') {
+                return { rating: 'Unknown', description: 'Missing data required for catastrophe analysis.', color: 'gray', fillOpacity: 0.1 };
+            }
+
+            const diameterKm = parseFloat(diameterMax);
+            const distanceKm = parseFloat(missDistance);
+
+            if (diameterKm >= 0.3 && distanceKm <= 500000) {
+                return { rating: 'EXTREME CATASTROPHE (Level 5)', description: 'This object is large enough to cause global devastation if it impacts Earth. Its close approach distance warrants significant concern.', color: 'darkred', fillOpacity: 0.8 };
+            }
+            if (diameterKm >= 0.1 && distanceKm <= 7000000) {
+                return { rating: 'HIGH RISK (Level 4)', description: 'Potential for continental or large regional damage upon impact. Requires continuous tracking.', color: 'red', fillOpacity: 0.6 };
+            }
+            if (diameterKm >= 0.01 && distanceKm <= 10000000) {
+                return { rating: 'SIGNIFICANT THREAT (Level 3)', description: 'Likely to cause localized, city-scale destruction (similar to Tunguska or Chelyabinsk events) if impact occurs.', color: 'orange', fillOpacity: 0.4 };
+            }
+            if (diameterKm > 0 && distanceKm <= 30000000) {
+                return { rating: 'MINOR THREAT (Level 2)', description: 'Too small to cause major surface damage, but a fragmentation airburst remains possible.', color: 'gold', fillOpacity: 0.3 };
+            }
+            return { rating: 'NEGLIGIBLE (Level 1)', description: 'No immediate threat. This object passes at a safe distance.', color: 'green', fillOpacity: 0.2 };
+        }
+
+        function displayResults(data) {
+            const resultsDiv = document.getElementById('results');
+
+            const name = data.name || 'N/A';
+            const designation = data.designation || 'N/A';
+            const isHazardous = data.is_potentially_hazardous_asteroid ? 'YES (Potentially Hazardous)' : 'No';
+
+            const diameterMin = data.estimated_diameter?.kilometers?.estimated_diameter_min?.toFixed(3) || 'N/A';
+            const diameterMax = data.estimated_diameter?.kilometers?.estimated_diameter_max?.toFixed(3) || 'N/A';
+
+            const approachData = data.close_approach_data && data.close_approach_data.length > 0 ? data.close_approach_data[0] : null;
+
+            const missDistanceKm = approachData?.miss_distance?.kilometers || 'N/A';
+
+            const catastrophe = calculateCatastropheRating(diameterMax, missDistanceKm);
+
+            resultsDiv.innerHTML = `
+            <h3 style="color: #007bff;">Asteroid Details: ${name}</h3>
+            
+            <p><strong>JPL Small Body Designation:</strong> ${designation}</p>
+
+            <hr style="border-top: 1px solid #ccc;">
+            
+            <h3 style="color: ${catastrophe.color}; margin-top: 15px;">
+                ⚠️ Catastrophe Rating: ${catastrophe.rating}
+            </h3>
+            <p style="padding-left: 10px;">${catastrophe.description}</p>
+
+            <hr style="border-top: 1px dashed #ccc;">
+
+            <p><strong>Potentially Hazardous:</strong> <span style="font-weight: bold; color: ${isHazardous.startsWith('YES') ? 'red' : 'green'};">${isHazardous}</span></p>
+            <p><strong>Estimated Diameter:</strong> ${diameterMin} km (Min) to ${diameterMax} km (Max)</p>
+            
+            <hr style="border-top: 1px dashed #ccc;">
+            
+            <h4 style="margin-bottom: 5px;">Approach Data:</h4>
+
+            ${approachData ? `
+                <p><strong>Nearest Approach Date:</strong> ${approachData.close_approach_date_full}</p>
+                <p><strong>Miss Distance:</strong> ${parseFloat(missDistanceKm).toFixed(0)} kilometers</p>
+                <p><strong>Relative Velocity:</strong> ${parseFloat(approachData.relative_velocity.kilometers_per_second).toFixed(2)} km/s</p>
+            ` : '<p>No recent close approach data available.</p>'}
+        `;
+        }
+
+        async function fetchAsteroidIdByName(name) {
+            const today = new Date().toISOString().split('T')[0];
+            const feedEndpoint = `${FEED_URL}?start_date=${today}&end_date=${today}&api_key=${API_KEY}`;
+
+            try {
+                const response = await fetch(feedEndpoint);
+                if (!response.ok) return null;
+
+                const feedData = await response.json();
+                const normalizedName = name.trim().toUpperCase();
+
+                for (const date in feedData.near_earth_objects) {
+                    const asteroids = feedData.near_earth_objects[date];
+
+                    for (const asteroid of asteroids) {
+                        if (asteroid.name.toUpperCase().includes(normalizedName) ||
+                            asteroid.designation.toUpperCase().includes(normalizedName)) {
+
+                            return asteroid.id;
+                        }
+                    }
+                }
+                return null;
+            } catch (error) {
+                console.error('Error searching NEO Feed:', error);
+                return null;
+            }
+        }
+
+        async function fetchAsteroidDetails() {
+            let inputVal = document.getElementById('asteroidId').value.trim();
+            const resultsDiv = document.getElementById('results');
+
+            if (!inputVal) {
+                resultsDiv.innerHTML = '<p style="color: red;">Please enter an Asteroid Name or SPK-ID.</p>';
+                return;
+            }
+
+            resultsDiv.innerHTML = '<p>Searching...</p>';
+
+            let asteroidId = inputVal;
+            if (isNaN(inputVal)) {
+                resultsDiv.innerHTML = '<p>Searching NASA NEO Feed by name...</p>';
+
+                const foundId = await fetchAsteroidIdByName(inputVal);
+
+                if (foundId) {
+                    asteroidId = foundId;
+                } else {
+                    resultsDiv.innerHTML = `<p style="color: red;">Error: Asteroid name "${inputVal}" was not found in the recent NEO database feed.</p>
+                                        <p>Please try a numerical SPK-ID for less popular asteroids.</p>`;
+                    return;
+                }
+            }
+            const endpoint = `${BASE_URL}${asteroidId}?api_key=${API_KEY}`;
+            resultsDiv.innerHTML = '<p>Fetching details...</p>';
+
+            try {
+                const response = await fetch(endpoint);
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    if (response.status === 404) {
+                        throw new Error(`Asteroid ID ${asteroidId} not found.`);
+                    }
+                    throw new Error(`HTTP error! Status: ${response.status}. Response: ${errorText.substring(0, 100)}...`);
+                }
+
+                const data = await response.json();
+                displayResults(data);
+
+            } catch (error) {
+                console.error('Error fetching asteroid data:', error);
+                resultsDiv.innerHTML = `<p style="color: red;">Error: Failed to fetch asteroid data.</p>
+                                    <p style="color: red;">${error.message}</p>`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const fetchButton = document.getElementById('fetchButton');
+
+            fetchButton.addEventListener('click', fetchAsteroidDetails);
+
+            fetchAsteroidDetails();
+        });
+    </script>
+
+    <div id="ar-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content modal-content-ar">
+            <button class="modal-close"
+                onclick="document.getElementById('ar-modal').style.display = 'none';">&times;</button>
+            <a-scene id="ar-scene" embedded ar-modes="webxr" vr-mode-ui="enabled: false"
+                style="width: 100%; height: 100%;" renderer="colorManagement: true">
+
+                <a-text id="ar-label" value="Airburst Simulation" color="#FFC107" position="0 1.6 -1.5" align="center"
+                    scale="0.3 0.3 0.3"></a-text>
+
+                <a-sphere id="ar-burst-marker" radius="0.05" color="#f3f4f6" position="0 1 0"
+                    animation="property: rotation; to: 0 360 0; loop: true; dur: 5000; easing: linear;"></a-sphere>
+
+                <a-ring id="ar-thermal-ring" radius-inner="0.01" radius-outer="1" color="#ff5722" opacity="0.3"
+                    rotation="-90 0 0" position="0 0.001 0"></a-ring>
+
+                <a-ring id="ar-shockwave-ring" radius-inner="0.01" radius-outer="2" color="#3b82f6" opacity="0.15"
+                    rotation="-90 0 0" position="0 0.002 0"></a-ring>
+
+                <a-entity camera look-controls></a-entity>
+            </a-scene>
+
+        </div>
+    </div>
+
+    <footer class="ftr">
+        <p>Created by ONDA<span style="color:#EAB308">G</span>O | <a style="color:#EAB308"
+                href="https://www.instagram.com/ondago.team/" target="_blank">Instagram</a></p>
+        <p>Data sourced from NASA's API & Mock example data</p>
+        <p style="color:grey">A Aditya Nair | Aadithyan.D</p>
+    </footer>
+    <span id="fireball-button" style="border: none; width:1px; height:1px; position:absolute; visibility: hidden;">
+
+    </span>
+
+
+        
+</body>
+
+</html>
