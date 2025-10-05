@@ -39,7 +39,7 @@
             color: rgb(255, 255, 255);
             font-size: 80px;
             margin-bottom: 10px;
-            letter-spacing: 12px;
+            letter-spacing: 5px;
             transition: color 0.5s ease;
 
         }
